@@ -66,10 +66,10 @@ class RootCommand(Feature):
         if distributions:
             dist_version = f'{distributions[0]} `{package_version(distributions[0])}`'
         else:
-            dist_version = f'unknown `{discord.__version__}`'
+            dist_version = f'unknown `2.1.0a4599+g68607181`'
 
         summary = [
-            f"Jishaku v{package_version('jishaku')}, {dist_version}, "
+            f"Jishaku v2.5.1a468+ga645951.master, {dist_version}, "
             f"`Python {sys.version}` on `{sys.platform}`".replace("\n", ""),
             f"Module was loaded <t:{self.load_time.timestamp():.0f}:R>, "
             f"cog was loaded <t:{self.start_time.timestamp():.0f}:R>.",
