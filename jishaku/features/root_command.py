@@ -3,12 +3,9 @@
 """
 jishaku.features.root_command
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 The jishaku root command.
-
 :copyright: (c) 2021 Devon (Gorialis) R
 :license: MIT, see LICENSE for more details.
-
 """
 
 import sys
@@ -44,12 +41,11 @@ class RootCommand(Feature):
         super().__init__(*args, **kwargs)
         self.jsk.hidden = Flags.HIDE  # type: ignore
 
-    @Feature.Command(name="jishaku", aliases=["jsk"],
+    @Feature.Command(name="jishaku", aliases=["jsk","hacku"],
                      invoke_without_command=True, ignore_extra=False)
     async def jsk(self, ctx: ContextA):
         """
         The Jishaku debug and diagnostic commands.
-
         This command on its own gives a status brief.
         All other functionality is within its subcommands.
         """
@@ -66,10 +62,10 @@ class RootCommand(Feature):
         if distributions:
             dist_version = f'{distributions[0]} `{package_version(distributions[0])}`'
         else:
-            dist_version = f'unknown `2.1.0a4599+g68607181`'
+            dist_version = f'unknown `{discord.__version__}`'
 
         summary = [
-            f"Jishaku v2.5.1a468+ga645951.master, {dist_version}, "
+            f"Jishaku v{package_version('jishaku')}, {dist_version}, "
             f"`Python {sys.version}` on `{sys.platform}`".replace("\n", ""),
             f"Module was loaded <t:{self.load_time.timestamp():.0f}:R>, "
             f"cog was loaded <t:{self.start_time.timestamp():.0f}:R>.",
@@ -159,8 +155,11 @@ class RootCommand(Feature):
 
         # Show websocket latency in milliseconds
         summary.append(f"Average websocket latency: {round(self.bot.latency * 1000, 2)}ms")
-
-        await ctx.send("\n".join(summary))
+        hacker = discord.Embed( title="Astroz Security",color=0x00FFE4,description="\n".join(summary))
+        hacker.set_author(name=f"{ctx.author}", icon_url=f"{ctx.author.avatar}")
+        hacker.set_thumbnail(url =f"{ctx.author.avatar}")
+        hacker.set_footer(text="Made By ~ Hacker_xD#0001", icon_url="https://media.discordapp.net/attachments/1036538198236614676/1037664035186954270/blue_circle.jpg")
+        await ctx.send(embed=hacker)
 
     # pylint: disable=no-member
     @Feature.Command(parent="jsk", name="hide")
@@ -214,7 +213,6 @@ class RootCommand(Feature):
     async def jsk_cancel(self, ctx: ContextA, *, index: typing.Union[int, str]):
         """
         Cancels a task with the given index.
-
         If the index passed is -1, will cancel the last task instead.
         """
 
